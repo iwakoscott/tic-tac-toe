@@ -3,12 +3,19 @@ body {
 }
 
 button {
-  width: 33vw;
-  height: 32vh;
-  margin: 5px;
+  width: 30vw;
+  height: 21vh;
   border-color: black;
+  text-align: center;
+  border-style: ridge;
+  border-color: black;
+  outline: none;
+}
+
+.row {
+  width: 100%;
 }
 
 .game-piece {
-  font-size: 100px;
+
 }

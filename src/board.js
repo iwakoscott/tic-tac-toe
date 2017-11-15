@@ -17,7 +17,7 @@ class Board extends Component {
   render(){
 
     return (
-      <div className="container-fluid board">
+      <div className="container board">
 
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
