@@ -1,0 +1,14 @@
+body {
+  background-color: black;
+}
+
+button {
+  width: 33vw;
+  height: 32vh;
+  margin: 5px;
+  border-color: black;
+}
+
+.game-piece {
+  font-size: 100px;
+}
