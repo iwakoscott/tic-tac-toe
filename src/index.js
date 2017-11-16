@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Board from './board'
+import Board from './components/board'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
