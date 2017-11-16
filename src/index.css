@@ -3,8 +3,8 @@ body {
 }
 
 button {
-  width: 30vw;
-  height: 21vh;
+  min-width: 30vw;
+  min-height: 21vh;
   border-color: black;
   text-align: center;
   border-style: ridge;

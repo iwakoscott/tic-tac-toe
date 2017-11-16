@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Square(){
+function Square(props){
   return (
     <button >
-      <h1 className="game-piece">x</h1>
+      <h1 className="game-piece">{props.value}</h1>
     </button>
   );
 }
