@@ -12,6 +12,10 @@ button {
   outline: none;
 }
 
+button:hover {
+  background-color: Gainsboro;
+}
+
 .row {
   width: 100%;
 }
