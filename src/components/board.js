@@ -16,16 +16,26 @@ class Board extends Component {
       c2: <i className="fa fa-hand-paper-o fa-lg"></i>,
       c3: <i className="fa fa-hand-scissors-o fa-lg"></i>
     };
+
+    this.updateSquare = this.updateSquare.bind(this);
+
   } // Board.constructor
 
+  updateSquare(newPiece, coordinate){
+    alert('Success!');
+    this.setState({
+      coordinate: newPiece
+    });
+  } // Board.updateSquare
+
   renderSquare(value){
-    return <Square value={value}/>;
+    return <Square value={value} />;
   } // Board.renderSquare
 
   render(){
 
     return (
-      <div className="container board">
+      <div>
 
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">

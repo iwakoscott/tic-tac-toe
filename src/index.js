@@ -9,7 +9,19 @@ class Game extends Component {
 
   render(){
     return (
-      <Board />
+      <div className="container-fluid">
+
+        <div className="row top-header">
+            <h6> <i className="fa fa-laptop"></i></h6>
+        </div>
+
+        <Board />
+
+        <div className="row bottom-header">
+            <h6><i className="fa fa-user"></i></h6>
+        </div>
+
+      </div>
     );
   } // Game.render
 

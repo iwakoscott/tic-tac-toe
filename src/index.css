@@ -2,24 +2,64 @@ body {
   background-color: black;
 }
 
+/* Board */
+
 button {
-  min-width: 30vw;
-  min-height: 21vh;
-  border-color: black;
   text-align: center;
-  border-style: ridge;
   border-color: black;
-  outline: none;
+  max-width: 30vw;
+  min-width: 33vw;
+  min-height: 18vh;
+  max-height: 18vh;
 }
 
 button:hover {
   background-color: Gainsboro;
 }
 
-.row {
+/* Computer */
+
+.top-header {
+  min-height: 15vh;
+  padding: 25px;
+  text-align: right;
   width: 100%;
 }
 
-.game-piece {
+.fa-laptop {
+  color: white;
+  font-size: 70px;
+}
 
+h6 {
+  color: white;
+  font-size: 27px;
+}
+
+/* You */
+
+.bottom-header {
+  min-height: 15vh;
+  text-align: left;
+  width: 100%;
+  padding: 25px;
+}
+
+.fa-user {
+  color: white;
+  font-size: 70px;
+}
+
+/* Media Queries */
+
+@media only screen and (min-width: 760px) {
+  button {
+    min-width: 25vw;
+  }
+}
+
+@media only screen and (min-width: 761px) {
+  button {
+    min-width: 33vw;
+  }
 }
