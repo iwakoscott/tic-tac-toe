@@ -28,8 +28,8 @@ class Board extends Component {
     });
   } // Board.updateSquare
 
-  renderSquare(value){
-    return <Square value={value} />;
+  renderSquare(value, position){
+    return <Square value={value} position={position}/>;
   } // Board.renderSquare
 
   render(){
@@ -39,37 +39,37 @@ class Board extends Component {
 
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.a1)}
+            {this.renderSquare(this.state.a1, 'a1')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.a2)}
+            {this.renderSquare(this.state.a2, 'a2')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.a3)}
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.b1)}
-          </div>
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.b2)}
-          </div>
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.b3)}
+            {this.renderSquare(this.state.a3, 'a3')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.c1)}
+            {this.renderSquare(this.state.b1, 'b1')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.c2)}
+            {this.renderSquare(this.state.b2, 'b2')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.c3)}
+            {this.renderSquare(this.state.b3, 'b3')}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {this.renderSquare(this.state.c1, 'c1')}
+          </div>
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {this.renderSquare(this.state.c2, 'c2')}
+          </div>
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {this.renderSquare(this.state.c3, 'c3')}
           </div>
         </div>
 
