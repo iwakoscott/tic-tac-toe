@@ -21,15 +21,17 @@ class Board extends Component {
 
   } // Board.constructor
 
-  updateSquare(newPiece, coordinate){
-    alert('Success!');
-    this.setState({
-      coordinate: newPiece
-    });
+  updateSquare(e){
+    
+    // alert('Success!');
+    // this.setState({
+    //   coordinate: newPiece
+    // });
+
   } // Board.updateSquare
 
   renderSquare(value, position){
-    return <Square value={value} position={position}/>;
+    return <Square onClick={this.updateSquare} value={value} position={position}/>;
   } // Board.renderSquare
 
   render(){

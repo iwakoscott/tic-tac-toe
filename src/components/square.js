@@ -2,8 +2,8 @@ import React from 'react';
 
 function Square(props){
   return (
-    <button >
-      <h1 className="game-piece">{props.value}</h1>
+    <button className="game-piece" id={ props.position } onClick={(e) => {props.onClick(e)}}>
+      {props.value}
     </button>
   );
 }
