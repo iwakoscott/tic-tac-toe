@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import Square from './square';
 
+function fontAwesomeIcon(args) {
+  var cNames = 'game-piece fa';
+  for (var i = 0; i < arguments.length; i++) {
+    cNames += ' ' + arguments[i];
+  } // for each argument (which are classNames)
+  return '<i class=\'' + cNames + '\'></i>';
+} // fontAwesomeIcon
+
 function shuffle(array){
   // Source cited: https://goo.gl/E3Xoch
   let temp = array;
@@ -10,14 +18,6 @@ function shuffle(array){
   }
   return temp;
 } // shuffle
-
-function fontAwesomeIcon(args) {
-  var cNames = 'game-piece fa';
-  for (var i = 0; i < arguments.length; i++) {
-    cNames += ' ' + arguments[i];
-  } // for each argument (which are classNames)
-  return '<i class=\'' + cNames + '\'></i>';
-} // fontAwesomeIcon
 
 class Board extends Component {
 

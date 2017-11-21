@@ -28,6 +28,10 @@ button:hover {
 
 /* Computer */
 
+.score-comp {
+  color: white;
+}
+
 .top-header {
   min-height: 15vh;
   padding: 25px;
