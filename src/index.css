@@ -17,6 +17,15 @@ button:hover {
   background-color: Gainsboro;
 }
 
+#message {
+  color: white;
+  text-align: right;
+}
+
+.game-piece {
+  font-size: 2em;
+}
+
 /* Computer */
 
 .top-header {
