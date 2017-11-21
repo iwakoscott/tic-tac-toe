@@ -1,37 +1,56 @@
 import React, { Component } from 'react';
 import Square from './square';
 
+function fontAwesomeIcon(args) {
+  var cNames = 'fa';
+  for (var i = 0; i < arguments.length; i++) {
+    cNames += ' ' + arguments[i];
+  } // for each argument (which are classNames)
+  return '<i class=\'' + cNames + '\'></i>';
+} // fontAwesomeIcon
+
 class Board extends Component {
 
   constructor(props){
     super(props);
+
     this.state = {
-      a1: 'TIC',
-      a2: 'TAC',
-      a3: 'TOE',
-      b1: '',
-      b2: '',
-      b3: '',
-      c1: <i className="fa fa-hand-rock-o fa-lg"></i>,
-      c2: <i className="fa fa-hand-paper-o fa-lg"></i>,
-      c3: <i className="fa fa-hand-scissors-o fa-lg"></i>
+      aa: 'TIC',
+      ab: 'TAC',
+      ac: 'TOE',
+      ba: '',
+      bb: '',
+      bc: '',
+      ca: fontAwesomeIcon('fa-hand-rock-o', 'fa-lg'),
+      cb: fontAwesomeIcon('fa-hand-paper-o', 'fa-lg'),
+      cc: fontAwesomeIcon('fa-hand-scissors-o', 'fa-lg')
     };
 
-    this.updateSquare = this.updateSquare.bind(this);
+    this.updateSquareOnClick = this.updateSquareOnClick.bind(this);
 
   } // Board.constructor
 
-  updateSquare(e){
-    
-    // alert('Success!');
-    // this.setState({
-    //   coordinate: newPiece
-    // });
+  updateSquareOnClick(e){
 
-  } // Board.updateSquare
+    var currentTagName = e.target.tagName;
+    var thisPosition;
+
+    if (currentTagName === 'I') {
+      thisPosition = e.target.parentElement.id;
+    }
+
+    else {
+      thisPosition = e.target.id;
+    }
+
+    var changeInState = {};
+    changeInState[thisPosition] = 'k';
+
+    this.setState(changeInState);
+  } // Board.updateSquareOnClick
 
   renderSquare(value, position){
-    return <Square onClick={this.updateSquare} value={value} position={position}/>;
+    return <Square onClick={this.updateSquareOnClick} value={value} position={position}/>;
   } // Board.renderSquare
 
   render(){
@@ -41,37 +60,37 @@ class Board extends Component {
 
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.a1, 'a1')}
+            {this.renderSquare(this.state.aa, 'aa')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.a2, 'a2')}
+            {this.renderSquare(this.state.ab, 'ab')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.a3, 'a3')}
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.b1, 'b1')}
-          </div>
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.b2, 'b2')}
-          </div>
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.b3, 'b3')}
+            {this.renderSquare(this.state.ac, 'ac')}
           </div>
         </div>
 
         <div className="row">
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.c1, 'c1')}
+            {this.renderSquare(this.state.ba, 'ba')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.c2, 'c2')}
+            {this.renderSquare(this.state.bb, 'bb')}
           </div>
           <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            {this.renderSquare(this.state.c3, 'c3')}
+            {this.renderSquare(this.state.bc, 'bc')}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {this.renderSquare(this.state.ca, 'ca')}
+          </div>
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {this.renderSquare(this.state.cb, 'cb')}
+          </div>
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {this.renderSquare(this.state.cc, 'cc')}
           </div>
         </div>
 
