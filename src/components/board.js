@@ -100,7 +100,9 @@ class Board extends Component {
 
   startRPSGame(){
     // update computer row with question mark icons + remove start button
+
     this.props.updateMessage("Lets play Rock, Paper, Scissors to decide who gets to be 'X'. Best two out of three.");
+
     this.props.updateStage(1);
     this.setState({
       aa: fontAwesomeIcon('fa-question-circle-o', 'fa-lg'),
@@ -126,6 +128,14 @@ class Board extends Component {
     updates['a' + col] = getRPSIcon(this.state.rpsComputer[i]);
     this.setState(updates);
     let iWon = youWon(i, this.state.rpsComputer[i]);
+
+    if (iWon > 0) {
+      this.props.updateMessage("Crap.");
+    } // I won
+
+    else if (iWon < 0) {
+      this.props.updateMessage("ah ha!");
+    } // Computer Won
     this.props.updateMyScore(iWon);
   } // Board.rpsSelect
 
