@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import Square from './square';
 
+function getComputerMoves(){
+  let moves = [];
+  for (let i = 0; i < 3; i++) {
+    let val = Math.floor(Math.random() * 1000) % 3;
+    moves.push(val);
+  }
+  return moves;
+}
+
 function youWon(you, computer) {
 
   if (you === computer) {
@@ -30,16 +39,6 @@ function fontAwesomeIcon(args) {
   } // for each argument (which are classNames)
   return '<i class=\'' + cNames + '\'></i>';
 } // fontAwesomeIcon
-
-function shuffle(array){
-  // Source cited: https://goo.gl/E3Xoch
-  let temp = array;
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [temp[i], temp[j]] = [temp[j], temp[i]];
-  }
-  return temp;
-} // shuffle
 
 function getRPSIcon(n) {
   let icon;
@@ -76,7 +75,7 @@ class Board extends Component {
       ca: '',
       cb: '',
       cc: '',
-      rpsComputer: [0, 1, 2]
+      rpsComputer: []
     };
 
     this.getTagFromEvent = this.getTagFromEvent.bind(this);
@@ -110,7 +109,7 @@ class Board extends Component {
       ca: fontAwesomeIcon('fa-hand-rock-o', 'fa-lg'),
       cb: fontAwesomeIcon('fa-hand-paper-o', 'fa-lg'),
       cc: fontAwesomeIcon('fa-hand-scissors-o', 'fa-lg'),
-      rpsComputer: shuffle(this.state.rpsComputer)
+      rpsComputer: getComputerMoves()
     });
 
   } // Board.startGame
