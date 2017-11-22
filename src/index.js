@@ -21,7 +21,15 @@ class Game extends Component {
     this.updateStage = this.updateStage.bind(this);
     this.updateMyScore = this.updateMyScore.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
+    this.resetRPSScore = this.resetRPSScore.bind(this);
   } // Game.constructor
+
+  resetRPSScore(){
+    this.setState({
+      you: 0,
+      computer: 0,
+    });
+  } // Game.resetRPSScore
 
   updateMessage(message) {
     this.setState({ message });
@@ -67,7 +75,11 @@ class Game extends Component {
         <Board stage={this.state.stage}
                updateStage={this.updateStage}
                updateMyScore={this.updateMyScore}
-               updateMessage={this.updateMessage}/>
+               updateMessage={this.updateMessage}
+               computer={this.state.computer}
+               you={this.state.you}
+               resetRPSScore={this.resetRPSScore}
+               />
 
         {/* Bottom header */}
         <div className="row bottom-header">

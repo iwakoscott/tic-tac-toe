@@ -75,7 +75,10 @@ class Board extends Component {
       ca: '',
       cb: '',
       cc: '',
-      rpsComputer: []
+      rpsComputer: [],
+      rpsWinner: null,
+      rpsWinnerDecided: false,
+      rpsMoveCount: 1
     };
 
     this.getTagFromEvent = this.getTagFromEvent.bind(this);
@@ -112,20 +115,51 @@ class Board extends Component {
       ca: fontAwesomeIcon('fa-hand-rock-o', 'fa-lg'),
       cb: fontAwesomeIcon('fa-hand-paper-o', 'fa-lg'),
       cc: fontAwesomeIcon('fa-hand-scissors-o', 'fa-lg'),
-      rpsComputer: getComputerMoves()
+      rpsComputer: getComputerMoves(),
+      rpsWinner: null,
+      rpsWinnerDecided: false,
+      rpsMoveCount: 1
     });
 
   } // Board.startGame
 
   rpsSelect(e){
+    let self = this;
     let tag = this.getTagFromEvent(e);
-
     let col = tag.slice(1);
-    // if needed
     let row = tag.slice(0, 1);
     let updates = {};
     let i = 'abc'.indexOf(col);
+
+    if (this.props.you === 2 || this.props.computer == 2) {
+      let rpsWinner = this.props.you === 2 ? 'You' : 'Computer';
+      this.setState({
+        rpsWinner,
+        rpsWinnerDecided: true,
+      });
+
+      this.props.updateMessage(this.state.rpsWinner + " first!");
+      setTimeout(function(){
+        self.props.updateStage(2);
+      }, 4000);
+      return;
+    } // Winner is found!
+
+    else if (this.state.rpsMoveCount === 3 && !this.state.rpsWinnerDecided) {
+      let self = this;
+      this.props.updateMessage("A tie... Let's try again shall we?");
+
+      setTimeout(function(){
+        self.props.resetRPSScore();
+        self.startRPSGame();
+      }, 4000);
+
+      return;
+    } // tie is found
+
+
     updates['a' + col] = getRPSIcon(this.state.rpsComputer[i]);
+    updates['rpsMoveCount'] = this.state.rpsMoveCount + 1;
     this.setState(updates);
     let iWon = youWon(i, this.state.rpsComputer[i]);
 
@@ -136,6 +170,7 @@ class Board extends Component {
     else if (iWon < 0) {
       this.props.updateMessage("ah ha!");
     } // Computer Won
+
     this.props.updateMyScore(iWon);
   } // Board.rpsSelect
 
