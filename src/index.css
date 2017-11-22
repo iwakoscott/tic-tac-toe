@@ -32,11 +32,22 @@ button:hover {
   color: white;
 }
 
-.top-header {
-  min-height: 15vh;
-  padding: 25px;
+.scoreboard {
+  border-style: solid;
+  border-color: white;
+  width: 30vw;
+  height: 11vh;
+  text-align: left;
+}
+
+.computer-holder {
+  width: 25vw;
   text-align: right;
+}
+
+.top-header {
   width: 100%;
+  margin: 10px;
 }
 
 .fa-laptop {

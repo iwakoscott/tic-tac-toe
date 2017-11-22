@@ -52,7 +52,7 @@ class Game extends Component {
         {/* Top header */}
         <div className="row top-header">
             <Score you={this.state.you} computer={this.state.computer}/>
-            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 computer-holder">
               <h6> <i className="fa fa-laptop"></i></h6>
             </div>
         </div>
