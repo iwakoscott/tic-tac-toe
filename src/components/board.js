@@ -131,36 +131,10 @@ class Board extends Component {
     let updates = {};
     let i = 'abc'.indexOf(col);
 
-    if (this.props.you === 2 || this.props.computer == 2) {
-      let rpsWinner = this.props.you === 2 ? 'You' : 'Computer';
-      this.setState({
-        rpsWinner,
-        rpsWinnerDecided: true,
-      });
-
-      this.props.updateMessage(this.state.rpsWinner + " first!");
-      setTimeout(function(){
-        self.props.updateStage(2);
-      }, 4000);
-      return;
-    } // Winner is found!
-
-    else if (this.state.rpsMoveCount === 3 && !this.state.rpsWinnerDecided) {
-      let self = this;
-      this.props.updateMessage("A tie... Let's try again shall we?");
-
-      setTimeout(function(){
-        self.props.resetRPSScore();
-        self.startRPSGame();
-      }, 4000);
-
-      return;
-    } // tie is found
-
-
     updates['a' + col] = getRPSIcon(this.state.rpsComputer[i]);
     updates['rpsMoveCount'] = this.state.rpsMoveCount + 1;
     this.setState(updates);
+
     let iWon = youWon(i, this.state.rpsComputer[i]);
 
     if (iWon > 0) {
@@ -172,6 +146,33 @@ class Board extends Component {
     } // Computer Won
 
     this.props.updateMyScore(iWon);
+
+    if (this.props.you === 2 || this.props.computer == 2) {
+      let rpsWinner = this.props.you === 2 ? 'You' : 'Computer';
+      this.setState({
+        rpsWinner,
+        rpsWinnerDecided: true,
+      });
+
+      setTimeout(function(){
+        self.props.updateMessage(self.state.rpsWinner + " first!");
+      }, 3000);
+
+      this.props.updateStage(2);
+      return;
+    } // Winner is found!
+
+    else if (this.state.rpsMoveCount === 3 && !this.state.rpsWinnerDecided) {
+      let self = this;
+      this.props.updateMessage("A tie... Let's try again shall we?");
+
+      setTimeout(function(){
+        self.props.resetRPSScore();
+        self.startRPSGame();
+      }, 2000);
+
+      return;
+    } // tie is found
   } // Board.rpsSelect
 
   renderSquare(value, position, disabled, onClick){
