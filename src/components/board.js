@@ -100,6 +100,7 @@ class Board extends Component {
 
   startRPSGame(){
     // update computer row with question mark icons + remove start button
+    this.props.updateMessage("Lets play Rock, Paper, Scissors to decide who gets to be 'X'. Best two out of three.");
     this.props.updateStage(1);
     this.setState({
       aa: fontAwesomeIcon('fa-question-circle-o', 'fa-lg'),

@@ -15,11 +15,17 @@ class Game extends Component {
       stage: 0,
       you: 0,
       computer: 0,
+      message: "Hi. Let's play a game! Click start!"
     };
 
     this.updateStage = this.updateStage.bind(this);
     this.updateMyScore = this.updateMyScore.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
   } // Game.constructor
+
+  updateMessage(message) {
+    this.setState({ message });
+  } // Game.updateMessage
 
   updateStage(stage){
     this.setState({
@@ -58,12 +64,15 @@ class Game extends Component {
         </div>
 
         {/* Board Element */}
-        <Board stage={this.state.stage} updateStage={this.updateStage} updateMyScore={this.updateMyScore}/>
+        <Board stage={this.state.stage}
+               updateStage={this.updateStage}
+               updateMyScore={this.updateMyScore}
+               updateMessage={this.updateMessage}/>
 
         {/* Bottom header */}
         <div className="row bottom-header">
             <h6><i className="fa fa-user"></i> You</h6>
-            <Message text="So. Who's X?"/>
+            <Message text={this.state.message} />
         </div>
 
       </div>
