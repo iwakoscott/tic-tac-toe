@@ -19,6 +19,26 @@ function shuffle(array){
   return temp;
 } // shuffle
 
+function getRPSIcon(n) {
+  let icon;
+  switch(n) {
+    case 0:
+      icon = fontAwesomeIcon('fa-hand-rock-o', 'fa-lg');
+      break;
+    case 1:
+      icon = fontAwesomeIcon('fa-hand-paper-o', 'fa-lg');
+      break;
+    case 2:
+      icon = fontAwesomeIcon('fa-hand-scissors-o', 'fa-lg');
+      break;
+    default:
+      icon = fontAwesomeIcon('fa-times-circle', 'fa-lg');
+      break;
+  }
+
+  return icon;
+} // getRPSIcon
+
 class Board extends Component {
 
   constructor(props){
@@ -37,13 +57,12 @@ class Board extends Component {
       rpsComputer: [0, 1, 2]
     };
 
-    this.updateSquareOnClick = this.updateSquareOnClick.bind(this);
+    this.getTagFromEvent = this.getTagFromEvent.bind(this);
     this.startRPSGame = this.startRPSGame.bind(this);
     this.rpsSelect = this.rpsSelect.bind(this);
   } // Board.constructor
 
-  updateSquareOnClick(e){
-
+  getTagFromEvent(e){
     var currentTagName = e.target.tagName;
     var thisPosition;
 
@@ -55,12 +74,8 @@ class Board extends Component {
       thisPosition = e.target.id;
     }
 
-    var changeInState = {};
-    changeInState[thisPosition] = 'k';
-
-    this.setState(changeInState);
-
-  } // Board.updateSquareOnClick
+    return thisPosition;
+  }
 
   startRPSGame(){
     // update computer row with question mark icons + remove start button
@@ -78,8 +93,22 @@ class Board extends Component {
 
   } // Board.startGame
 
-  rpsSelect(){
-    alert('Selected!');
+  rpsSelect(e){
+    let tag = this.getTagFromEvent(e);
+
+    let col = tag.slice(1);
+    // if needed
+    let row = tag.slice(0, 1);
+    let updates = {};
+    let i = 'abc'.indexOf(col);
+    updates['a' + col] = getRPSIcon(this.state.rpsComputer[i]);
+    this.setState(updates);
+
+
+
+
+
+
   } // Board.rpsSelect
 
   renderSquare(value, position, disabled, onClick){

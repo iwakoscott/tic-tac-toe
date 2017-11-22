@@ -6,7 +6,7 @@ function Square(props){
             id={props.position}
             disabled={props.disabled}
             dangerouslySetInnerHTML = {{__html: props.value}}
-            onClick={() => { props.onClick() }}>
+            onClick={(e) => { props.onClick(e) }}>
     </button>
   );
   return button;
