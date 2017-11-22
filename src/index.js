@@ -13,11 +13,12 @@ class Game extends Component {
     super(props);
     this.state = {
       stage: 0,
-      you: 2,
-      computer: 3,
+      you: 0,
+      computer: 0,
     };
 
     this.updateStage = this.updateStage.bind(this);
+    this.updateMyScore = this.updateMyScore.bind(this);
   } // Game.constructor
 
   updateStage(stage){
@@ -25,6 +26,24 @@ class Game extends Component {
       stage,
     });
   } // Game.updateStage
+
+  updateMyScore(score){
+    let you = this.state.you;
+    let computer = this.state.computer;
+
+    if (score > 0) {
+      you += 1;
+    } // I won. Give me the points
+
+    else if (score < 0) {
+      computer += 1;
+    }
+
+    this.setState({
+      you,
+      computer
+    });
+  } // Game.updateMyScore
 
   render(){
     return (
@@ -39,7 +58,7 @@ class Game extends Component {
         </div>
 
         {/* Board Element */}
-        <Board stage={this.state.stage} updateStage={this.updateStage}/>
+        <Board stage={this.state.stage} updateStage={this.updateStage} updateMyScore={this.updateMyScore}/>
 
         {/* Bottom header */}
         <div className="row bottom-header">

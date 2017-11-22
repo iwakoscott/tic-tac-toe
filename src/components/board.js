@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
 import Square from './square';
 
+function youWon(you, computer) {
+
+  if (you === computer) {
+    return 0;
+  }
+
+  if (you === 2 && computer === 1) {
+    return 1;
+  } // you: scissors, computer: paper
+
+  if (you === 1 && computer === 0) {
+    return 1;
+  } // you: paper, computer: rock
+
+  if (you === 0 && computer === 2) {
+    return 1;
+  } // you: rock, computer: scissors
+
+  return -1;
+
+} // youWon
+
 function fontAwesomeIcon(args) {
   var cNames = 'game-piece fa';
   for (var i = 0; i < arguments.length; i++) {
@@ -103,12 +125,8 @@ class Board extends Component {
     let i = 'abc'.indexOf(col);
     updates['a' + col] = getRPSIcon(this.state.rpsComputer[i]);
     this.setState(updates);
-
-
-
-
-
-
+    let iWon = youWon(i, this.state.rpsComputer[i]);
+    this.props.updateMyScore(iWon);
   } // Board.rpsSelect
 
   renderSquare(value, position, disabled, onClick){
