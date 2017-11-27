@@ -76,7 +76,6 @@ class Board extends Component {
       cb: '',
       cc: '',
       rpsComputerMoves: [],
-      'disabled-board': false,
     };
 
     this.getTagFromEvent = this.getTagFromEvent.bind(this);
@@ -87,6 +86,7 @@ class Board extends Component {
   } // Board.constructor
 
   startTTTGame(){
+    var self = this;
     this.props.toggleTTTMode(true);
     this.setState({
       aa: '',
@@ -101,6 +101,11 @@ class Board extends Component {
     });
     this.props.updateMessage("Lets play Tic-Tac-Toe!")
     this.props.updateStage(2);
+
+    if (this.props.rpsWinner !== 'You') {
+
+    }// if you didn't win the rps game let the computer make a move.
+
   } // Board.startTTTGame
 
   tttSelect(e) {
@@ -184,11 +189,9 @@ class Board extends Component {
       else if (self.props.rpsNumTurns % 3 === 0) {
         self.setState({
           rpsComputerMoves: getComputerMoves()
-        }, () => {
-          console.log(self.state.rpsComputerMoves);
         });
       }
-    }, 1000);
+    }, 750);
 
   } // Board.rpsSelect
 
@@ -296,37 +299,37 @@ class Board extends Component {
           <div>
             <div className="row">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.aa, 'aa', false, this.tttSelect)}
+                {this.renderSquare(this.state.aa, 'aa', this.state.disableButtons, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ab, 'ab', false, this.tttSelect)}
+                {this.renderSquare(this.state.ab, 'ab', this.state.disableButtons, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ac, 'ac', false, this.tttSelect)}
+                {this.renderSquare(this.state.ac, 'ac', this.state.disableButtons, this.tttSelect)}
               </div>
             </div>
 
             <div className="row">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ba, 'ba', false, this.tttSelect)}
+                {this.renderSquare(this.state.ba, 'ba', this.state.disableButtons, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.bb, 'bb', false, this.tttSelect)}
+                {this.renderSquare(this.state.bb, 'bb', this.state.disableButtons, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.bc, 'bc', false, this.tttSelect)}
+                {this.renderSquare(this.state.bc, 'bc', this.state.disableButtons, this.tttSelect)}
               </div>
             </div>
 
             <div className="row" id="my-selection">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ca, 'ca', false, this.tttSelect)}
+                {this.renderSquare(this.state.ca, 'ca', this.state.disableButtons, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.cb, 'cb', false, this.tttSelect)}
+                {this.renderSquare(this.state.cb, 'cb', this.state.disableButtons, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.cc, 'cc', false, this.tttSelect)}
+                {this.renderSquare(this.state.cc, 'cc', this.state.disableButtons, this.tttSelect)}
               </div>
             </div>
 
