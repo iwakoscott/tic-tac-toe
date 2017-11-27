@@ -86,6 +86,7 @@ class Board extends Component {
   } // Board.constructor
 
   startTTTGame(){
+    this.props.toggleTTTMode(true);
     this.setState({
       aa: '',
       ab: '',
@@ -97,6 +98,7 @@ class Board extends Component {
       cb: '',
       cc: '',
     });
+    this.props.updateMessage("Lets play Tic-Tac-Toe!")
     this.props.updateStage(2);
   } // Board.startTTTGame
 
@@ -121,7 +123,6 @@ class Board extends Component {
 
   startRPSGame(){
     // update computer row with question mark icons + remove start button
-
     this.props.updateMessage("Lets play Rock, Paper, Scissors to decide who gets to be 'X'. Best two out of three.");
     this.props.resetRPSScore();
     this.props.updateStage(1);
@@ -171,7 +172,9 @@ class Board extends Component {
       if (self.props.rpsWinnerDecided) {
         let message = self.props.rpsWinner === 'You' ? "You get 'X'!" : "Computer gets 'X'!";
         self.props.updateMessage(message);
-        self.startTTTGame();
+        setTimeout(() => {
+          self.startTTTGame();
+        }, 2000);
       }
 
       else if (self.props.rpsNumTurns > 2) {

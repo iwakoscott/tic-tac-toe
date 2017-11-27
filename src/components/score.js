@@ -20,6 +20,25 @@ class Score extends Component {
 
   render(){
 
+    if (this.props.ttt) {
+
+      return (
+        <div className="score-comp">
+
+          <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5 ttt-header">
+            <h1 className="score-header">You</h1>
+            <h5 className="ttt" dangerouslySetInnerHTML={{__html: this.props.you}}></h5>
+          </div>
+
+          <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5 ttt-header">
+            <h1 className="score-header">Computer</h1>
+            <h5 className="ttt" dangerouslySetInnerHTML={{__html: this.props.computer}}></h5>
+          </div>
+
+      </div>
+      );
+    } // if in tic tac toe mode
+
     return (
       <div className="score-comp">
 
@@ -36,7 +55,7 @@ class Score extends Component {
     </div>
     );
 
-  }
+  } // Score.render
 
 } // Score
 

@@ -7,6 +7,14 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './index.css';
 
+function fontAwesomeIcon(args) {
+  var cNames = 'game-piece fa';
+  for (var i = 0; i < arguments.length; i++) {
+    cNames += ' ' + arguments[i];
+  } // for each argument (which are classNames)
+  return '<i class=\'' + cNames + '\'></i>';
+} // fontAwesomeIcon
+
 class Game extends Component {
 
   constructor(props){
@@ -18,14 +26,24 @@ class Game extends Component {
       message: "Hi. Let's play a game! Click start!",
       rpsWinner: '',
       rpsWinnerDecided: false,
-      rpsNumTurns: 0
+      rpsNumTurns: 0,
+      ttt: false
     };
 
     this.updateStage = this.updateStage.bind(this);
     this.updateScores = this.updateScores.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
     this.resetRPSScore = this.resetRPSScore.bind(this);
+    this.toggleTTTMode = this.toggleTTTMode.bind(this);
   } // Game.constructor
+
+  toggleTTTMode(status){
+    this.setState({
+      ttt: status,
+      you: this.state.rpsWinner === 'You' ? fontAwesomeIcon('fa-times', 'fa-lg') : fontAwesomeIcon('fa-circle-o', 'fa-lg'),
+      computer: this.state.rpsWinner === 'Computer' ? fontAwesomeIcon('fa-times', 'fa-lg') : fontAwesomeIcon('fa-circle-o', 'fa-lg')
+    });
+  } // Game.toggleTTTMode
 
   resetRPSScore(){
     this.setState({
@@ -78,7 +96,7 @@ class Game extends Component {
 
         {/* Top header */}
         <div className="row top-header">
-            <Score you={this.state.you} computer={this.state.computer}/>
+            <Score you={this.state.you} computer={this.state.computer} ttt={this.state.ttt}/>
             <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 computer-holder">
               <h6> <i className="fa fa-laptop"></i></h6>
             </div>
@@ -95,12 +113,13 @@ class Game extends Component {
                rpsWinnerDecided={this.state.rpsWinnerDecided}
                rpsWinner={this.state.rpsWinner}
                rpsNumTurns={this.state.rpsNumTurns}
+               toggleTTTMode={this.toggleTTTMode}
                />
 
         {/* Bottom header */}
         <div className="row bottom-header">
             <h6><i className="fa fa-user"></i> You</h6>
-            <Message text={this.state.message} />
+            <Message text={this.state.message}/>
         </div>
 
       </div>
