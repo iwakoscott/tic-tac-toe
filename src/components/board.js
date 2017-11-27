@@ -76,6 +76,7 @@ class Board extends Component {
       cb: '',
       cc: '',
       rpsComputerMoves: [],
+      'disabled-board': false,
     };
 
     this.getTagFromEvent = this.getTagFromEvent.bind(this);
@@ -123,7 +124,7 @@ class Board extends Component {
 
   startRPSGame(){
     // update computer row with question mark icons + remove start button
-    this.props.updateMessage("Lets play Rock, Paper, Scissors to decide who gets to be 'X'. Best two out of three.");
+    this.props.updateMessage("Lets play Rock, Paper, Scissors to decide who gets to be 'X'. First to win twice!");
     this.props.resetRPSScore();
     this.props.updateStage(1);
     this.setState({
@@ -145,12 +146,11 @@ class Board extends Component {
     // Get coordinate
     let tag = this.getTagFromEvent(e);
     let col = tag.slice(1);
-    let row = tag.slice(0, 1);
+    //let row = tag.slice(0, 1);
     let selected = columns.indexOf(col);
-    let nextCol = columns[this.props.rpsNumTurns];
 
     // for updating board components state
-    this.setState({ 'ab': getRPSIcon(this.state.rpsComputerMoves[this.props.rpsNumTurns]) });
+    this.setState({ 'ab': getRPSIcon(this.state.rpsComputerMoves[this.props.rpsNumTurns % 3]) });
 
     let iWon = youWon(selected, this.state.rpsComputerMoves[this.props.rpsNumTurns]);
 
@@ -178,10 +178,9 @@ class Board extends Component {
       }
 
       else if (self.props.rpsNumTurns > 2) {
-        self.props.updateMessage('Tied... Lets try this again...');
-        setTimeout(function(){
-          self.startRPSGame();
-        }, 2000);
+        self.setState({
+          rpsComputerMoves: getComputerMoves()
+        });
       }
     }, 1000);
 

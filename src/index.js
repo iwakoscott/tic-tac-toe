@@ -65,6 +65,10 @@ class Game extends Component {
     let you = this.state.you;
     let computer = this.state.computer;
 
+    if (you > 2 || computer > 2) {
+      return;
+    } // dont update scores past 2
+
     if (score > 0) {
       you += 1;
     } // I won. Give me the points
