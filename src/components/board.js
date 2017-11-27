@@ -103,8 +103,11 @@ class Board extends Component {
     this.props.updateStage(2);
   } // Board.startTTTGame
 
-  tttSelect() {
-    alert('In progress!');
+  tttSelect(e) {
+    let targetsPosition = e.target.id;
+    let updates = {};
+    updates[targetsPosition] = this.props.rpsWinner === 'You' ? fontAwesomeIcon('fa-times', 'fa-lg') : fontAwesomeIcon('fa-circle-o', 'fa-lg');
+    this.setState(updates);
   } // Board.tttSelect
 
   getTagFromEvent(e){
