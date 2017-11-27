@@ -183,7 +183,7 @@ class Board extends Component {
         self.props.updateMessage(message);
         setTimeout(() => {
           self.startTTTGame();
-        }, 1000);
+        }, 2000);
       }
 
       else if (self.props.rpsNumTurns % 3 === 0) {
@@ -191,7 +191,7 @@ class Board extends Component {
           rpsComputerMoves: getComputerMoves()
         });
       }
-    }, 750);
+    }, 3000);
 
   } // Board.rpsSelect
 
@@ -279,13 +279,13 @@ class Board extends Component {
 
             <div className='row' id="my-selection">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ca, 'ca', false, this.rpsSelect)}
+                {this.renderSquare(this.state.ca, 'ca', this.props.buttonsDisabled, this.rpsSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.cb, 'cb', false, this.rpsSelect)}
+                {this.renderSquare(this.state.cb, 'cb', this.props.buttonsDisabled, this.rpsSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.cc, 'cc', false, this.rpsSelect)}
+                {this.renderSquare(this.state.cc, 'cc', this.props.buttonsDisabled, this.rpsSelect)}
               </div>
             </div>
 
@@ -299,37 +299,37 @@ class Board extends Component {
           <div>
             <div className="row">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.aa, 'aa', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.aa, 'aa', this.props.buttonsDisabled, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ab, 'ab', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.ab, 'ab', this.props.buttonsDisabled, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ac, 'ac', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.ac, 'ac', this.props.buttonsDisabled, this.tttSelect)}
               </div>
             </div>
 
             <div className="row">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ba, 'ba', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.ba, 'ba', this.props.buttonsDisabled, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.bb, 'bb', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.bb, 'bb', this.props.buttonsDisabled, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.bc, 'bc', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.bc, 'bc', this.props.buttonsDisabled, this.tttSelect)}
               </div>
             </div>
 
             <div className="row" id="my-selection">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.ca, 'ca', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.ca, 'ca', this.props.buttonsDisabled, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.cb, 'cb', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.cb, 'cb', this.props.buttonsDisabled, this.tttSelect)}
               </div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                {this.renderSquare(this.state.cc, 'cc', this.state.disableButtons, this.tttSelect)}
+                {this.renderSquare(this.state.cc, 'cc', this.props.buttonsDisabled, this.tttSelect)}
               </div>
             </div>
 

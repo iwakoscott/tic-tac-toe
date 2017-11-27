@@ -28,6 +28,7 @@ class Game extends Component {
       rpsWinnerDecided: false,
       rpsNumTurns: 0,
       ttt: false,
+      buttonsDisabled: false,
     };
 
     this.updateStage = this.updateStage.bind(this);
@@ -35,7 +36,14 @@ class Game extends Component {
     this.updateMessage = this.updateMessage.bind(this);
     this.resetRPSScore = this.resetRPSScore.bind(this);
     this.toggleTTTMode = this.toggleTTTMode.bind(this);
+    this.disableBoardButtons = this.disableBoardButtons.bind(this);
   } // Game.constructor
+
+  disableBoardButtons(status){
+    this.setState({
+      buttonsDisabled: status
+    });
+  } // Game.disableBoardButtons
 
   toggleTTTMode(status){
     this.setState({
@@ -82,6 +90,7 @@ class Game extends Component {
 
     if (rpsWinnerDecided) {
       rpsWinner = you > 1 ? 'You' : 'Computer';
+      this.disableBoardButtons(true);
     }
 
     this.setState({
@@ -118,6 +127,8 @@ class Game extends Component {
                rpsWinner={this.state.rpsWinner}
                rpsNumTurns={this.state.rpsNumTurns}
                toggleTTTMode={this.toggleTTTMode}
+               disableBoardButtons={this.disableBoardButtons}
+               buttonsDisabled={this.state.buttonsDisabled}
                />
 
         {/* Bottom header */}
