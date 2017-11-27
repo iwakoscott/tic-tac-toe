@@ -75,14 +75,34 @@ class Board extends Component {
       ca: '',
       cb: '',
       cc: '',
-      rpsComputer: [],
-      rpsNumTurns: 0,
+      rpsComputerMoves: [],
     };
 
     this.getTagFromEvent = this.getTagFromEvent.bind(this);
     this.startRPSGame = this.startRPSGame.bind(this);
     this.rpsSelect = this.rpsSelect.bind(this);
+    this.startTTTGame = this.startTTTGame.bind(this);
+    this.tttSelect = this.tttSelect.bind(this);
   } // Board.constructor
+
+  startTTTGame(){
+    this.setState({
+      aa: '',
+      ab: '',
+      ac: '',
+      ba: '',
+      bb: '',
+      bc: '',
+      ca: '',
+      cb: '',
+      cc: '',
+    });
+    this.props.updateStage(2);
+  } // Board.startTTTGame
+
+  tttSelect() {
+    alert('In progress!');
+  } // Board.tttSelect
 
   getTagFromEvent(e){
     var currentTagName = e.target.tagName;
@@ -103,17 +123,17 @@ class Board extends Component {
     // update computer row with question mark icons + remove start button
 
     this.props.updateMessage("Lets play Rock, Paper, Scissors to decide who gets to be 'X'. Best two out of three.");
-
+    this.props.resetRPSScore();
     this.props.updateStage(1);
     this.setState({
-      aa: fontAwesomeIcon('fa-question-circle-o', 'fa-lg'),
+      aa: '',
       ab: fontAwesomeIcon('fa-question-circle-o', 'fa-lg'),
-      ac: fontAwesomeIcon('fa-question-circle-o', 'fa-lg'),
+      ac: '',
       bb: '',
       ca: fontAwesomeIcon('fa-hand-rock-o', 'fa-lg'),
       cb: fontAwesomeIcon('fa-hand-paper-o', 'fa-lg'),
       cc: fontAwesomeIcon('fa-hand-scissors-o', 'fa-lg'),
-      rpsComputer: getComputerMoves(),
+      rpsComputerMoves: getComputerMoves(),
     });
 
   } // Board.startGame
@@ -126,15 +146,12 @@ class Board extends Component {
     let col = tag.slice(1);
     let row = tag.slice(0, 1);
     let selected = columns.indexOf(col);
-    let nextCol = columns[this.state.rpsNumTurns];
+    let nextCol = columns[this.props.rpsNumTurns];
 
     // for updating board components state
-    let updates = {};
-    updates['a' + nextCol] = getRPSIcon(this.state.rpsComputer[this.state.rpsNumTurns]);
-    updates['rpsNumTurns'] = this.state.rpsNumTurns + 1;
-    this.setState(updates);
+    this.setState({ 'ab': getRPSIcon(this.state.rpsComputerMoves[this.props.rpsNumTurns]) });
 
-    let iWon = youWon(selected, this.state.rpsComputer[this.state.rpsNumTurns]);
+    let iWon = youWon(selected, this.state.rpsComputerMoves[this.props.rpsNumTurns]);
 
     if (iWon > 0) {
       this.props.updateMessage("Crap.");
@@ -144,7 +161,26 @@ class Board extends Component {
       this.props.updateMessage("ah ha!");
     } // Computer Won
 
+    else {
+      this.props.updateMessage('');
+    } // tie
+
     this.props.updateScores(iWon);
+
+    setTimeout(() => {
+      if (self.props.rpsWinnerDecided) {
+        let message = self.props.rpsWinner === 'You' ? "You get 'X'!" : "Computer gets 'X'!";
+        self.props.updateMessage(message);
+        self.startTTTGame();
+      }
+
+      else if (self.props.rpsNumTurns > 2) {
+        self.props.updateMessage('Tied... Lets try this again...');
+        setTimeout(function(){
+          self.startRPSGame();
+        }, 2000);
+      }
+    }, 1000);
 
   } // Board.rpsSelect
 
@@ -155,7 +191,7 @@ class Board extends Component {
   render(){
 
     // TODO: Build switch statement for each stage
-    var board;
+    var board = '';
     switch(this.props.stage) {
 
       // Title Page
@@ -230,7 +266,7 @@ class Board extends Component {
               </div>
             </div>
 
-            <div className="row">
+            <div className="row" id="my-selection">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                 {this.renderSquare(this.state.ca, 'ca', false, this.rpsSelect)}
               </div>
@@ -246,6 +282,49 @@ class Board extends Component {
         );
         break;
 
+      // TTT Gameboard
+      case 2:
+        board = (
+          <div>
+            <div className="row">
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.aa, 'aa', false, this.tttSelect)}
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.ab, 'ab', false, this.tttSelect)}
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.ac, 'ac', false, this.tttSelect)}
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.ba, 'ba', false, this.tttSelect)}
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.bb, 'bb', false, this.tttSelect)}
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.bc, 'bc', false, this.tttSelect)}
+              </div>
+            </div>
+
+            <div className="row" id="my-selection">
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.ca, 'ca', false, this.tttSelect)}
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.cb, 'cb', false, this.tttSelect)}
+              </div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                {this.renderSquare(this.state.cc, 'cc', false, this.tttSelect)}
+              </div>
+            </div>
+
+          </div> // Wrapper
+        );
+        break;
     } // switch
     return board;
 

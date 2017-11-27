@@ -16,7 +16,9 @@ class Game extends Component {
       you: 0,
       computer: 0,
       message: "Hi. Let's play a game! Click start!",
-      rpsWinner: false
+      rpsWinner: '',
+      rpsWinnerDecided: false,
+      rpsNumTurns: 0
     };
 
     this.updateStage = this.updateStage.bind(this);
@@ -28,7 +30,8 @@ class Game extends Component {
   resetRPSScore(){
     this.setState({
       you: 0,
-      computer: 0
+      computer: 0,
+      rpsNumTurns: 0
     });
   } // Game.resetRPSScore
 
@@ -52,11 +55,21 @@ class Game extends Component {
       computer += 1;
     }
 
+    let rpsWinnerDecided = you > 1 || computer > 1 ? true : false;
+    let rpsWinner = '';
+
+    if (rpsWinnerDecided) {
+      rpsWinner = you > 1 ? 'You' : 'Computer';
+    }
+
     this.setState({
       you,
       computer,
-      rpsWinner: you === 2 || computer === 2 ? true : false
+      rpsWinner,
+      rpsWinnerDecided,
+      rpsNumTurns: this.state.rpsNumTurns + 1
     });
+
   } // Game.updateScores
 
   render(){
@@ -79,6 +92,9 @@ class Game extends Component {
                computer={this.state.computer}
                you={this.state.you}
                resetRPSScore={this.resetRPSScore}
+               rpsWinnerDecided={this.state.rpsWinnerDecided}
+               rpsWinner={this.state.rpsWinner}
+               rpsNumTurns={this.state.rpsNumTurns}
                />
 
         {/* Bottom header */}
