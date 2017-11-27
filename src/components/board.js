@@ -110,6 +110,7 @@ class Board extends Component {
     this.setState(updates);
   } // Board.tttSelect
 
+
   getTagFromEvent(e){
     var currentTagName = e.target.tagName;
     var thisPosition;
@@ -155,7 +156,7 @@ class Board extends Component {
     // for updating board components state
     this.setState({ 'ab': getRPSIcon(this.state.rpsComputerMoves[this.props.rpsNumTurns % 3]) });
 
-    let iWon = youWon(selected, this.state.rpsComputerMoves[this.props.rpsNumTurns]);
+    let iWon = youWon(selected, this.state.rpsComputerMoves[this.props.rpsNumTurns % 3]);
 
     if (iWon > 0) {
       this.props.updateMessage("Crap.");
@@ -177,12 +178,14 @@ class Board extends Component {
         self.props.updateMessage(message);
         setTimeout(() => {
           self.startTTTGame();
-        }, 2000);
+        }, 1000);
       }
 
-      else if (self.props.rpsNumTurns > 2) {
+      else if (self.props.rpsNumTurns % 3 === 0) {
         self.setState({
           rpsComputerMoves: getComputerMoves()
+        }, () => {
+          console.log(self.state.rpsComputerMoves);
         });
       }
     }, 1000);
