@@ -76,9 +76,7 @@ class Board extends Component {
       cb: '',
       cc: '',
       rpsComputer: [],
-      rpsWinner: null,
-      rpsWinnerDecided: false,
-      rpsMoveCount: 1
+      rpsNumTurns: 0,
     };
 
     this.getTagFromEvent = this.getTagFromEvent.bind(this);
@@ -116,26 +114,27 @@ class Board extends Component {
       cb: fontAwesomeIcon('fa-hand-paper-o', 'fa-lg'),
       cc: fontAwesomeIcon('fa-hand-scissors-o', 'fa-lg'),
       rpsComputer: getComputerMoves(),
-      rpsWinner: null,
-      rpsWinnerDecided: false,
-      rpsMoveCount: 1
     });
 
   } // Board.startGame
 
   rpsSelect(e){
     let self = this;
+    let columns = 'abc';
+    // Get coordinate
     let tag = this.getTagFromEvent(e);
     let col = tag.slice(1);
     let row = tag.slice(0, 1);
-    let updates = {};
-    let i = 'abc'.indexOf(col);
+    let selected = columns.indexOf(col);
+    let nextCol = columns[this.state.rpsNumTurns];
 
-    updates['a' + col] = getRPSIcon(this.state.rpsComputer[i]);
-    updates['rpsMoveCount'] = this.state.rpsMoveCount + 1;
+    // for updating board components state
+    let updates = {};
+    updates['a' + nextCol] = getRPSIcon(this.state.rpsComputer[this.state.rpsNumTurns]);
+    updates['rpsNumTurns'] = this.state.rpsNumTurns + 1;
     this.setState(updates);
 
-    let iWon = youWon(i, this.state.rpsComputer[i]);
+    let iWon = youWon(selected, this.state.rpsComputer[this.state.rpsNumTurns]);
 
     if (iWon > 0) {
       this.props.updateMessage("Crap.");
@@ -145,34 +144,8 @@ class Board extends Component {
       this.props.updateMessage("ah ha!");
     } // Computer Won
 
-    this.props.updateMyScore(iWon);
+    this.props.updateScores(iWon);
 
-    if (this.props.you === 2 || this.props.computer == 2) {
-      let rpsWinner = this.props.you === 2 ? 'You' : 'Computer';
-      this.setState({
-        rpsWinner,
-        rpsWinnerDecided: true,
-      });
-
-      setTimeout(function(){
-        self.props.updateMessage(self.state.rpsWinner + " first!");
-      }, 3000);
-
-      this.props.updateStage(2);
-      return;
-    } // Winner is found!
-
-    else if (this.state.rpsMoveCount === 3 && !this.state.rpsWinnerDecided) {
-      let self = this;
-      this.props.updateMessage("A tie... Let's try again shall we?");
-
-      setTimeout(function(){
-        self.props.resetRPSScore();
-        self.startRPSGame();
-      }, 2000);
-
-      return;
-    } // tie is found
   } // Board.rpsSelect
 
   renderSquare(value, position, disabled, onClick){

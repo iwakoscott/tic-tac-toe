@@ -15,11 +15,12 @@ class Game extends Component {
       stage: 0,
       you: 0,
       computer: 0,
-      message: "Hi. Let's play a game! Click start!"
+      message: "Hi. Let's play a game! Click start!",
+      rpsWinner: false
     };
 
     this.updateStage = this.updateStage.bind(this);
-    this.updateMyScore = this.updateMyScore.bind(this);
+    this.updateScores = this.updateScores.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
     this.resetRPSScore = this.resetRPSScore.bind(this);
   } // Game.constructor
@@ -27,7 +28,7 @@ class Game extends Component {
   resetRPSScore(){
     this.setState({
       you: 0,
-      computer: 0,
+      computer: 0
     });
   } // Game.resetRPSScore
 
@@ -36,12 +37,10 @@ class Game extends Component {
   } // Game.updateMessage
 
   updateStage(stage){
-    this.setState({
-      stage,
-    });
+    this.setState({ stage });
   } // Game.updateStage
 
-  updateMyScore(score){
+  updateScores(score){
     let you = this.state.you;
     let computer = this.state.computer;
 
@@ -55,9 +54,10 @@ class Game extends Component {
 
     this.setState({
       you,
-      computer
+      computer,
+      rpsWinner: you === 2 || computer === 2 ? true : false
     });
-  } // Game.updateMyScore
+  } // Game.updateScores
 
   render(){
     return (
@@ -74,7 +74,7 @@ class Game extends Component {
         {/* Board Element */}
         <Board stage={this.state.stage}
                updateStage={this.updateStage}
-               updateMyScore={this.updateMyScore}
+               updateScores={this.updateScores}
                updateMessage={this.updateMessage}
                computer={this.state.computer}
                you={this.state.you}
