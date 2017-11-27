@@ -27,7 +27,7 @@ class Game extends Component {
       rpsWinner: '',
       rpsWinnerDecided: false,
       rpsNumTurns: 0,
-      ttt: false
+      ttt: false,
     };
 
     this.updateStage = this.updateStage.bind(this);

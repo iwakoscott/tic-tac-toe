@@ -163,7 +163,7 @@ class Board extends Component {
     } // Computer Won
 
     else {
-      this.props.updateMessage('');
+      this.props.updateMessage('....');
     } // tie
 
     this.props.updateScores(iWon);
@@ -269,7 +269,7 @@ class Board extends Component {
               </div>
             </div>
 
-            <div className="row" id="my-selection">
+            <div className={'row ' + this.props.disabledClassName} id="my-selection">
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                 {this.renderSquare(this.state.ca, 'ca', false, this.rpsSelect)}
               </div>
