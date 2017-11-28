@@ -29,6 +29,7 @@ class Game extends Component {
       rpsNumTurns: 0,
       ttt: false,
       buttonsDisabled: false,
+      tttNumTurns: 0,
     };
 
     this.updateStage = this.updateStage.bind(this);
@@ -37,7 +38,14 @@ class Game extends Component {
     this.resetRPSScore = this.resetRPSScore.bind(this);
     this.toggleTTTMode = this.toggleTTTMode.bind(this);
     this.disableBoardButtons = this.disableBoardButtons.bind(this);
+    this.updateTTTTurns = this.updateTTTTurns.bind(this);
   } // Game.constructor
+
+  updateTTTTurns(){
+    this.setState({
+      tttNumTurns: this.state.tttNumTurns + 1,
+    });
+  } // Game.updateTTTTurns
 
   disableBoardButtons(status){
     this.setState({
@@ -129,6 +137,7 @@ class Game extends Component {
                toggleTTTMode={this.toggleTTTMode}
                disableBoardButtons={this.disableBoardButtons}
                buttonsDisabled={this.state.buttonsDisabled}
+               updateTTTTurns={this.updateTTTTurns}
                />
 
         {/* Bottom header */}

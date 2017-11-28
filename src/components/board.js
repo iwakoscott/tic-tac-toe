@@ -81,11 +81,31 @@ class Board extends Component {
     this.getTagFromEvent = this.getTagFromEvent.bind(this);
     this.startRPSGame = this.startRPSGame.bind(this);
     this.rpsSelect = this.rpsSelect.bind(this);
-    this.startTTTGame = this.startTTTGame.bind(this);
+    this.setUpTTTGame = this.setUpTTTGame.bind(this);
     this.tttSelect = this.tttSelect.bind(this);
+    this.startTTTGame= this.startTTTGame.bind(this);
   } // Board.constructor
 
   startTTTGame(){
+    var self = this;
+    if (this.props.rpsWinner !== 'You') {
+      /* Play computers first move */
+      let bestFirstMoves = ['aa', 'ac', 'bb', 'ca', 'cc'];
+      let compFirstMove = bestFirstMoves[Math.floor(Math.random() * 1000) % bestFirstMoves.length];
+      let updates = {};
+      updates[compFirstMove] = fontAwesomeIcon('fa-times', 'fa-lg');
+      self.setState(updates);
+      self.props.disableBoardButtons(false);
+    }// if you didn't win the rps game let the computer make a move.
+
+    else {
+      setTimeout(() => {
+        self.props.disableBoardButtons(false);
+      }, 2000);
+    } // you won the round of rps
+  } // Board.startTTTGame
+
+  setUpTTTGame(){
     var self = this;
     this.props.toggleTTTMode(true);
     this.setState({
@@ -101,18 +121,16 @@ class Board extends Component {
     });
     this.props.updateMessage("Lets play Tic-Tac-Toe!")
     this.props.updateStage(2);
-
-    if (this.props.rpsWinner !== 'You') {
-
-    }// if you didn't win the rps game let the computer make a move.
-
-  } // Board.startTTTGame
+  } // Board.setUpTTTGame
 
   tttSelect(e) {
     let targetsPosition = e.target.id;
     let updates = {};
     updates[targetsPosition] = this.props.rpsWinner === 'You' ? fontAwesomeIcon('fa-times', 'fa-lg') : fontAwesomeIcon('fa-circle-o', 'fa-lg');
-    this.setState(updates);
+
+    if (!this.state[targetsPosition]) {
+      this.setState(updates);
+    } // if there is not already a move there
   } // Board.tttSelect
 
 
@@ -182,6 +200,7 @@ class Board extends Component {
         let message = self.props.rpsWinner === 'You' ? "You get 'X'!" : "Computer gets 'X'!";
         self.props.updateMessage(message);
         setTimeout(() => {
+          self.setUpTTTGame();
           self.startTTTGame();
         }, 2000);
       }
@@ -191,7 +210,7 @@ class Board extends Component {
           rpsComputerMoves: getComputerMoves()
         });
       }
-    }, 3000);
+    }, 500);
 
   } // Board.rpsSelect
 
